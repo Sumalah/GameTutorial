@@ -4,8 +4,11 @@ import java.awt.*;
 
 public class Player extends GameObject{
 
-    public Player(int x, int y, ID id){
+    Handler handler;
+
+    public Player(int x, int y, ID id, Handler handler){
         super(x, y, id);
+        this.handler = handler;
     }
 
     @Override
@@ -15,11 +18,32 @@ public class Player extends GameObject{
 
         x = Game.clamp(x, 0, Game.WIDTH-37);
         y = Game.clamp(y, 0, Game.HEIGHT-62);
+
+        colission();
+    }
+
+    private void colission() {
+        for (int i = 0; i< handler.object.size(); i++){
+            GameObject tempObject = handler.object.get(i);
+            if(tempObject.getId() == ID.BasicEnemy){
+                if(getBounds().intersects(tempObject.getBounds())){
+                    //collision
+                    HUD.HEALTH -= 2;
+                }
+
+
+            }
+        }
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(Color.white);
         g.fillRect(x, y, 32, 32);
+    }
+
+    @Override
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, 32, 32);
     }
 }
