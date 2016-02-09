@@ -27,6 +27,7 @@ public class Game extends Canvas implements Runnable{
 
         handler.addObject(new Player(100, 100, ID.Player, handler));
         handler.addObject(new BasicEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy, handler));
+        handler.addObject(new SmartEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy, handler));
 
     }
 
@@ -100,7 +101,7 @@ public class Game extends Canvas implements Runnable{
         bs.show();
     }
 
-    public static int clamp(int var, int min, int max){
+    public static float clamp(float var, float min, float max){
         if (var >= max){
             return var = max;
         }else if(var <= min){
